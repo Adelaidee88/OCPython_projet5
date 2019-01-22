@@ -8,11 +8,19 @@ class Database:
     def __init__(self, name):
         self.name = name
 
-    # def create_table(self):
+    def create_table(self, product_type):
+        table = "CREATE TABLE IF NOT EXIST" + product_type + "(" \
+                "id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT," \
+                "name VARCHAR(40) NOT NULL," \
+                "name_fr VARCHAR(40)," \
+                "nutriscore CHAR(1)," \
+                "url VARCHAR(100)," \
+                "labels TEXT," \
+                "PRIMARY KEY (id))"
 
     # def create_favotite(self):
 
-    # def fill_table(self):
+    # def fill_table(self, ):
 
         # db = pymysql.connect(host="localhost", user="root", passwd="piO!u3Cui7",
                              # db="test")

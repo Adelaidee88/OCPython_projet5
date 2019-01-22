@@ -56,7 +56,8 @@ class Cli(object):
             # affichées avec 1, 2, 3 etc
             get_input = input()
             int_input = int(get_input)
-            if int_input >= 1 and int_input <=10: # changer selon le nombre d'aliments
+            if int_input >= 1 and int_input <= 10:
+                # changer selon le nombre d'aliments
                 return self.show_category()
         except EOFError:
             print("C'est pas ça qu'il faut faire !!!")
@@ -72,9 +73,11 @@ class Cli(object):
             # affichées avec 1, 2, 3 etc
             get_input = input()
             int_input = int(get_input)
-            if int_input >= 1 and int_input <=10: # changer selon le nombre d'aliments
+            if int_input >= 1 and int_input <=10:
+                # changer selon le nombre d'aliments
                 return self.show_substitutes()
-            self.add_favorite(int_input) #  rechercher le nom de l'aliment dans la table
+            self.add_favorite(int_input)
+            #  rechercher le nom de l'aliment dans la table
         except EOFError:
             print("C'est pas ça qu'il faut faire !!!")
             sys.exit()
@@ -86,6 +89,7 @@ class Cli(object):
     def add_favorite(self):
         sql = "INSERT INTO IF NOT EXISTE favoris (name) VALUES (%s)"
         val = ("patate")
+
 
 cli = Cli()
 cli.main()

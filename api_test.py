@@ -7,13 +7,13 @@ db = pymysql.connect(host="localhost", user="root", passwd="piO!u3Cui7",
                      db="products")
 cur = db.cursor()
 
-base_model = "https://fr.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=categories&tag_contains_0=contains&tag_0=" + "jambons-blancs" + "&sort_by=unique_scans_n&page_size=10&axis_x=energy&axis_y=products_n&action=display&json=1"
+base_model = "https://fr-en.openfoodfacts.org/category/pizzas/1.json"
 print(base_model)
 response = requests.get(base_model)
 response = response.json()
 print(response)
 
-table = "CREATE TABLE IF NOT EXIST" + product_type + "(" \
+table = "CREATE TABLE IF NOT EXIST pizza (" \
         "id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT," \
         "name VARCHAR(40) NOT NULL," \
         "name_fr VARCHAR(40)," \
@@ -22,21 +22,34 @@ table = "CREATE TABLE IF NOT EXIST" + product_type + "(" \
         "labels TEXT," \
         "PRIMARY KEY (id))"
 
-sql = "INSERT INTO product_type VALUES (%s)"
-val = ("patate")
-cur.execute(sql, val)
+# faire une boucle avec un i à la place du 0 en index de la liste des produits,
+# pour tous les rentrer dans la bdd
+sql = "INSERT INTO pizza VALUES (NULL, "\
+      + response["products"][0]["product_name"] + ", "\
+      + response["products"][0]["product_name_fr"] + ", "\
+      + response["products"][0]["nutrition_grade_fr"] + ", "\
+      + response["products"][0]["url"] + ", "\
+      + response["products"][0]["labels"] + ")"
+
+# val = ("patate")
+# cur.execute(sql)
+
 db.commit()
 
-# name = response["product"]["codes_tags"]
+# name = response["products"][0]["product_name"]
 # print(name)
 # nom : product_name_fr / product_name
 # nutriscore : nutrition_grade_fr
 # url : url
 # description : labels
 # attention car sur 1e page pête à tart, que du nutella
-# pâtes à tartiner : https://fr.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=categories&tag_contains_0=contains&tag_0=%22%20+%20%22pates-a-tartiner%22%20+%20%22&sort_by=unique_scans_n&page_size=10&axis_x=energy&axis_y=products_n&action=display&json=1
-# pizza : https://fr.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=categories&tag_contains_0=contains&tag_0=" + "pizzas" + "&sort_by=unique_scans_n&page_size=10&axis_x=energy&axis_y=products_n&action=display&json=1
-# jambon blanc : https://fr.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=categories&tag_contains_0=contains&tag_0=" + "jambons-blancs" + "&sort_by=unique_scans_n&page_size=10&axis_x=energy&axis_y=products_n&action=display&json=1
-# yaourt : https://fr.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=categories&tag_contains_0=contains&tag_0=%22%20+%20%22yaourts%22%20+%20%22&sort_by=unique_scans_n&page_size=10&axis_x=energy&axis_y=products_n&action=display&json=1
+# pâtes à tartiner : https://fr-en.openfoodfacts.org/category/fr:pates-a-tartiner/2.json
+# ou https://fr.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=categories&tag_contains_0=contains&tag_0=%22%20+%20%22pates-a-tartiner%22%20+%20%22&sort_by=unique_scans_n&page_size=10&axis_x=energy&axis_y=products_n&action=display&json=1
+# pizza : https://fr-en.openfoodfacts.org/category/pizzas/1.json
+# ou https://fr.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=categories&tag_contains_0=contains&tag_0=" + "pizzas" + "&sort_by=unique_scans_n&page_size=10&axis_x=energy&axis_y=products_n&action=display&json=1
+# jambon blanc : https://fr-en.openfoodfacts.org/category/white-hams.json
+# ou https://fr.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=categories&tag_contains_0=contains&tag_0=" + "jambons-blancs" + "&sort_by=unique_scans_n&page_size=10&axis_x=energy&axis_y=products_n&action=display&json=1
+# yaourt : https://fr-en.openfoodfacts.org/category/yogurts.json
+# ou https://fr.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=categories&tag_contains_0=contains&tag_0=%22%20+%20%22yaourts%22%20+%20%22&sort_by=unique_scans_n&page_size=10&axis_x=energy&axis_y=products_n&action=display&json=1
 #
 

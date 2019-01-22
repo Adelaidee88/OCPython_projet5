@@ -2,7 +2,7 @@ import pymysql
 
 tmp = pymysql.install_as_MySQLdb()
 db = pymysql.connect(host="localhost", user="root", passwd="piO!u3Cui7",
-                     db="products")
+                     db="test")
 cur = db.cursor()
 # cur.execute("SELECT * FROM test_table")
 # for rows in cur.fetchall():
