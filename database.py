@@ -8,8 +8,10 @@ class Database:
     def __init__(self, name):
         self.name = name
 
+    # def connect_db(self):
+
     def create_table(self, product_type):
-        table = "CREATE TABLE IF NOT EXIST" + product_type + "(" \
+        table = "CREATE TABLE IF NOT EXIST" + '\"' + product_type + '\"' + "(" \
                 "id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT," \
                 "name VARCHAR(40) NOT NULL," \
                 "name_fr VARCHAR(40)," \
@@ -18,7 +20,7 @@ class Database:
                 "labels TEXT," \
                 "PRIMARY KEY (id))"
 
-    # def create_favotite(self):
+    # def create_favorite(self):
 
     # def fill_table(self, ):
 
