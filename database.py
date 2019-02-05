@@ -13,10 +13,10 @@ class Database:
     def create_table(self, product_type):
         table = "CREATE TABLE IF NOT EXIST" + '\"' + product_type + '\"' + "(" \
                 "id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT," \
-                "name VARCHAR(40) NOT NULL," \
-                "name_fr VARCHAR(40)," \
+                "name VARCHAR(100) NOT NULL," \
+                "name_fr VARCHAR(100)," \
                 "nutriscore CHAR(1)," \
-                "url VARCHAR(100)," \
+                "url VARCHAR(255)," \
                 "labels TEXT," \
                 "PRIMARY KEY (id))"
 
