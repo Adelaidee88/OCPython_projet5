@@ -15,9 +15,15 @@ class Cli(object):
             self.display_aliments(category)
             aliment = self.choose_aliment()
             self.database.show_aliment(aliment, category)
-            # voulez vous ajouter l'aliment à votre liste personnelle ?
+            chosen_aliment = self.database.show_aliment(aliment, category)
+            print("Voulez-vous enregister votre produit de substitution ? O/N")
+            get_input = input()
+            if get_input == "O" or get_input == "o":
+                self.database.add_favorite(chosen_aliment)
+            self.main()
         else:
-            self.show_category()
+            self.show_substitutes()
+            self.main()
 
     def main_question(self):
         # self.display_subs_aliment()
@@ -97,10 +103,6 @@ class Cli(object):
             print("Une erreur est survenue, l'input n'est pas bon.")
             return self.show_substitutes()
         return int_input  # retourner la valeur du champ selectionné
-
-    def add_favorite(self):
-        sql = "INSERT INTO IF NOT EXISTE favoris (name) VALUES (%s)"
-        val = ("patate")
 
 
 cli = Cli()

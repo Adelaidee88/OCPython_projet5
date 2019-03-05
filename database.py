@@ -18,7 +18,7 @@ class Database:
         self.cur = self.db.cursor()
 
     def create_table(self, product_type):
-        self.table = "CREATE TABLE IF NOT EXIST" + '\"' + product_type + '\"' +\
+        self.table = "CREATE TABLE IF NOT EXISTS" + '\"' + product_type + '\"' +\
                      "(" \
                 "id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT," \
                 "name VARCHAR(100) NOT NULL," \
@@ -29,7 +29,16 @@ class Database:
                 "PRIMARY KEY (id))"
         self.cur.execute(self.table)
 
-    # def create_favorite(self):
+    def create_favorite(self):
+        self.table = "CREATE TABLE IF NOT EXISTS favorites (" \
+                     "id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT," \
+                     "name VARCHAR(100) NOT NULL," \
+                     "name_fr VARCHAR(100)," \
+                     "nutriscore CHAR(1)," \
+                     "url VARCHAR(255)," \
+                     "labels TEXT," \
+                     "PRIMARY KEY (id))"
+        self.cur.execute(self.table)
 
     def fill_table(self):
         base = "https://fr-en.openfoodfacts.org/category/"
@@ -72,7 +81,7 @@ class Database:
                     self.cur.execute(sql)
 
     def get_category(self):
-        sql = "SHOW TABLES;"
+        sql = "SHOW TABLES;"  # sauf favoris
         self.cur.execute(sql)
         rows = self.cur.fetchall()
         list_category = []
@@ -93,10 +102,27 @@ class Database:
         sql = "SELECT * FROM " + category + " WHERE id = " + str(aliment) + ";"
         self.cur.execute(sql)
         choice = self.cur.fetchall()
-        print(choice[0])  # revoir formatage pour que ce soit joli
+        print(choice[0])
+        return choice[0]  # revoir formatage pour que ce soit joli
+
+    def add_favorite(self, aliment):
+        self.create_favorite()
+        print(aliment)
+        sql = "INSERT INTO favorites VALUES (" + '\"' + str(
+            aliment[0]) + '\"' + "," + '\"' + str(
+            aliment[1]) + '\"' + ", " + '\"' + str(
+            aliment[2]) + '\"' + "," + '\"' + str(
+            aliment[3]) + '\"' + ", " + '\"' + str(
+            aliment[4]) + '\"' + "," + '\"' + str(
+            aliment[5]) + '\"' + ")"
+        print(sql)
+        self.cur.execute(sql)
+        self.db.commit()
+
+
 
         # db = pymysql.connect(host="localhost", user="root",
-    # passwd="piO!u3Cui7", db="test")
+        # passwd="piO!u3Cui7", db="test")
         # sql = "INSERT INTO test_table (description) VALUES (%s)"
         # val = ("patate")
         # cur.execute(sql, val)
