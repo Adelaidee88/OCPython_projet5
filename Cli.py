@@ -85,25 +85,15 @@ class Cli(object):
             print("Une erreur est survenue, l'input n'est pas bon.")
             return self.choose_category()
 
-    def show_substitutes(self, category, aliment):
-        try:
-            # appel BDD pour liste des catégories : noms des tables
-            # affichées avec 1, 2, 3 etc
-            get_input = input()
-            int_input = int(get_input)
-            if int_input >= 1 and int_input <=10:
-                # changer selon le nombre d'aliments
-                return self.show_substitutes()
-            self.add_favorite(int_input)
-            #  rechercher le nom de l'aliment dans la table
-        except EOFError:
-            print("C'est pas ça qu'il faut faire !!!")
-            sys.exit()
-        except:
-            print("Une erreur est survenue, l'input n'est pas bon.")
-            return self.show_substitutes()
-        return int_input  # retourner la valeur du champ selectionné
+    def show_substitutes(self):
+        to_print = self.database.show_favorites()
+        for i in range(0, len(to_print)):
+            print(i + 1, to_print[i])
+
 
 
 cli = Cli()
 cli.main()
+
+# trouver comment ne pas afficher les favoris quand choix
+# finir show substitutes (pas besoin d'input dedans, on veut juste la montrer)

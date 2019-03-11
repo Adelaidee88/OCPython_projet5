@@ -119,6 +119,13 @@ class Database:
         self.cur.execute(sql)
         self.db.commit()
 
+    def show_favorites(self):
+        sql = "SELECT * FROM favorites"
+        self.cur.execute(sql)
+        choice = self.cur.fetchall()
+        print(choice)
+        return choice
+
 
 
         # db = pymysql.connect(host="localhost", user="root",

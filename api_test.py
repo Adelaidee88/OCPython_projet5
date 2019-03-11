@@ -55,6 +55,27 @@ for products, url in list_products.items():
                   + "NULL)"
             print(sql)
             cur.execute(sql)
+
+
+    def show_substitutes(self):
+        try:
+            # appel BDD pour montrer table des favoris
+            get_input = input()
+            int_input = int(get_input)
+            if int_input >= 1 and int_input <=10:
+                # changer selon le nombre d'aliments
+                return self.show_substitutes()
+            self.database.add_favorite(int_input)
+            #  rechercher le nom de l'aliment dans la table
+        except EOFError:
+            print("C'est pas ça qu'il faut faire !!!")
+            sys.exit()
+        except:
+            print("Une erreur est survenue, l'input n'est pas bon.")
+            return self.show_substitutes()
+        return int_input  # retourner la valeur du champ selectionné
+
+
 db.commit()
 
 # name = response["products"][0]["product_name"]
