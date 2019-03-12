@@ -16,17 +16,18 @@ class Cli(object):
             aliment = self.choose_aliment()
             self.database.show_aliment(aliment, category)
             chosen_aliment = self.database.show_aliment(aliment, category)
+            self.subs_aliment(chosen_aliment, category)
+            subs_aliment = self.subs_aliment(chosen_aliment, category)
             print("Voulez-vous enregister votre produit de substitution ? O/N")
             get_input = input()
             if get_input == "O" or get_input == "o":
-                self.database.add_favorite(chosen_aliment)
+                self.database.add_favorite(subs_aliment)
             self.main()
         else:
             self.show_substitutes()
             self.main()
 
     def main_question(self):
-        # self.display_subs_aliment()
         try:
             print("1 - Quel aliment souhaitez-vous remplacer ?")
             print("2 - Retrouver mes aliments substitués.")
@@ -49,7 +50,7 @@ class Cli(object):
             print(i + 1, to_print[i])
 
     def display_aliments(self, category):
-        to_print = self.database.get_aliments(category)  # récupérer la catégorie de l'input du choix de catégorie
+        to_print = self.database.get_aliments(category)
         for i in range(0, len(to_print)):
             print(i + 1, to_print[i])
 
@@ -58,7 +59,7 @@ class Cli(object):
             print("Choissez votre catégorie")
             get_input = input()
             int_input = int(get_input) - 1
-            if 0 <= int_input <= 3:
+            if 0 <= int_input <= 3:  # pas oublier de mettre au nb de catégorie
                 return self.database.get_category()[int_input][0]
             else:
                 return self.choose_category()
@@ -90,10 +91,28 @@ class Cli(object):
         for i in range(0, len(to_print)):
             print(i + 1, to_print[i])
 
+    def subs_aliment(self, aliment, category):
+        list_alim = self.database.list_aliments(category)
+        nutriscore = aliment[3]
+        save_id = -1
+        for subs in list_alim:
+            if subs[3] < nutriscore:
+                nutriscore = subs[3]
+                save_id = subs[0]
+            else:
+                if aliment[3] == "a":
+                    if subs[3] == "a":
+                        print("Votre aliment est le plus sain, mais voici un aliment équivalent à substituer.", subs)
+        if save_id == -1:
+            print("Il n'y a pas d'aliment plus sain à proposer.")
+        print(list_alim[save_id])
+        return list_alim[save_id]
+
 
 
 cli = Cli()
 cli.main()
 
-# trouver comment ne pas afficher les favoris quand choix
-# finir show substitutes (pas besoin d'input dedans, on veut juste la montrer)
+# empecher de refill
+#
+# arranger la visualisation

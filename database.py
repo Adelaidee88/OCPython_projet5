@@ -11,6 +11,7 @@ class Database:
         self.cur = None
         self.db = None
         self.connect_db()
+        self.fill_table()
 
     def connect_db(self):
         self.db = pymysql.connect(host="localhost", user="root",
@@ -18,7 +19,7 @@ class Database:
         self.cur = self.db.cursor()
 
     def create_table(self, product_type):
-        self.table = "CREATE TABLE IF NOT EXISTS" + '\"' + product_type + '\"' +\
+        self.table = "CREATE TABLE IF NOT EXISTS " + product_type + \
                      "(" \
                 "id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT," \
                 "name VARCHAR(100) NOT NULL," \
@@ -81,7 +82,7 @@ class Database:
                     self.cur.execute(sql)
 
     def get_category(self):
-        sql = "SHOW TABLES;"  # sauf favoris
+        sql = "SHOW TABLES WHERE tables_in_products != 'favorites';"  # sauf favoris
         self.cur.execute(sql)
         rows = self.cur.fetchall()
         list_category = []
@@ -91,6 +92,15 @@ class Database:
 
     def get_aliments(self, category):
         sql = "SELECT name_fr FROM " + category + ";"
+        self.cur.execute(sql)
+        rows = self.cur.fetchall()
+        list_aliments = []
+        for row in rows:
+            list_aliments.append(row)
+        return list_aliments
+
+    def list_aliments(self, category):
+        sql = "SELECT * FROM " + category + ";"
         self.cur.execute(sql)
         rows = self.cur.fetchall()
         list_aliments = []
@@ -108,8 +118,7 @@ class Database:
     def add_favorite(self, aliment):
         self.create_favorite()
         print(aliment)
-        sql = "INSERT INTO favorites VALUES (" + '\"' + str(
-            aliment[0]) + '\"' + "," + '\"' + str(
+        sql = "INSERT INTO favorites VALUES (NULL," + '\"' + str(
             aliment[1]) + '\"' + ", " + '\"' + str(
             aliment[2]) + '\"' + "," + '\"' + str(
             aliment[3]) + '\"' + ", " + '\"' + str(
@@ -125,8 +134,6 @@ class Database:
         choice = self.cur.fetchall()
         print(choice)
         return choice
-
-
 
         # db = pymysql.connect(host="localhost", user="root",
         # passwd="piO!u3Cui7", db="test")

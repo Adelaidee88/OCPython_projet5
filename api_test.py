@@ -78,6 +78,11 @@ for products, url in list_products.items():
 
 db.commit()
 
+#  + '\"' + str(
+#             aliment[0]) + '\"' +
+
+# + '\"' + product_type + '\" ' + \
+
 # name = response["products"][0]["product_name"]
 # print(name)
 # nom : product_name_fr / product_name
