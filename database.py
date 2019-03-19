@@ -11,7 +11,7 @@ class Database:
         self.cur = None
         self.db = None
         self.connect_db()
-        # self.fill_table()
+        self.fill_table()
 
     def connect_db(self):
         self.db = pymysql.connect(host="localhost", user="root",
@@ -47,13 +47,14 @@ class Database:
                          "yaourt": base + "yogurts.json",
                          "pâte_à_tartiner": base + "fr:pates-a-tartiner/2.json",
                          "jambon": base + "white-hams.json"}
-        # "tables crées" = False
-        # voir si les tables existent déjà et dans ce cas passer "tables créés" en True
-        # if "tables crées" = False: 'ne les créer que si elles n'existent pas)
-        for products in list_products.keys():
-            self.create_table(products)
-        self.fill_items(list_products)
-        self.db.commit()
+        try:
+            sql = "SELECT * FROM pizza;"
+            self.cur.execute(sql)
+        except:
+            for products in list_products.keys():
+                self.create_table(products)
+            self.fill_items(list_products)
+            self.db.commit()
 
     def fill_items(self, list_products):
         for products, url in list_products.items():
@@ -62,15 +63,15 @@ class Database:
             for i in range(0, len(response)):
                 try:
                     sql = "INSERT INTO " + products + " VALUES (NULL, " \
-                          + '\"' + response["products"][i][
-                              "product_name"] + '\"' + ", " \
-                          + '\"' + response["products"][i][
-                              "product_name_fr"] + '\"' + ", " \
-                          + '\"' + response["products"][i][
-                              "nutrition_grade_fr"] + '\"' + ", " \
-                          + '\"' + response["products"][i]["url"] + '\"' + ", " \
-                          + '\"' + response["products"][i][
-                              "labels"] + '\"' + ")"
+                            + '\"' + response["products"][i][
+                                  "product_name"] + '\"' + ", " \
+                            + '\"' + response["products"][i][
+                                "product_name_fr"] + '\"' + ", " \
+                            + '\"' + response["products"][i][
+                                "nutrition_grade_fr"] + '\"' + ", " \
+                            + '\"' + response["products"][i]["url"] + '\"' + ", " \
+                            + '\"' + response["products"][i][
+                                "labels"] + '\"' + ")"
                     self.cur.execute(sql)
                 except KeyError:
                     sql = "INSERT INTO " + products + " VALUES (NULL, " \
@@ -85,7 +86,7 @@ class Database:
                     self.cur.execute(sql)
 
     def get_category(self):
-        sql = "SHOW TABLES WHERE tables_in_products != 'favorites';"  # sauf favoris
+        sql = "SHOW TABLES WHERE tables_in_products != 'favorites';"
         self.cur.execute(sql)
         rows = self.cur.fetchall()
         list_category = []
@@ -120,13 +121,11 @@ class Database:
 
     def add_favorite(self, aliment, category):
         self.create_favorite()
-        print(aliment)
         sql = "INSERT INTO favorites VALUES (NULL," + '\"' + str(aliment[1]) + '\"' \
               + ", " + '\"' + str(aliment[2]) + '\"' \
               + "," + '\"' + str(aliment[3]) + '\"' \
               + ", " + '\"' + str(aliment[4]) + '\"' \
               + "," + '\"' + str(aliment[5]) + '\"' + ")"
-        print(sql)
         self.cur.execute(sql)
         self.db.commit()
 
@@ -143,4 +142,4 @@ class Database:
         # val = ("patate")
         # cur.execute(sql, val)
         # db.commit()
-# Pourquoi ma colonne id ne va pas de 1 en 1 à partir de 1 ?
+# faire un test pour voir si tables existent avant de les remplir

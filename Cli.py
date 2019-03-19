@@ -14,12 +14,9 @@ class Cli(object):
             category = self.choose_category()
             self.display_aliments(category)
             aliment = self.choose_aliment()
-            self.database.show_aliment(aliment, category)
             chosen_aliment = self.database.show_aliment(aliment, category)
-            self.subs_aliment(chosen_aliment, category)
             subs_aliment = self.subs_aliment(chosen_aliment, category)
-            # mettre un if : proposer la substitution si y a un produit, sinon retour au début
-            print("Voulez-vous enregister votre produit de substitution ? O/N")
+            print("Voulez-vous enregister ce produit ? O/N")
             get_input = input()
             if get_input == "O" or get_input == "o":
                 self.database.add_favorite(subs_aliment, category)
@@ -115,14 +112,12 @@ class Cli(object):
                           subs)
                     save_id = subs[0] - 1  # index lst commence à 0, id tbl à 1
         else:
-            print("Voici l'aliment le plus sains à substituer :",
-                  list_alim[save_id])
+            print("Voici l'aliment le plus sain :", list_alim[save_id])
         return list_alim[save_id]
 
 
 cli = Cli()
 cli.main()
 
-# empecher de refill
-#
+
 # arranger la visualisation
