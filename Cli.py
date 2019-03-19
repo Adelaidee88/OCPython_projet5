@@ -18,6 +18,7 @@ class Cli(object):
             chosen_aliment = self.database.show_aliment(aliment, category)
             self.subs_aliment(chosen_aliment, category)
             subs_aliment = self.subs_aliment(chosen_aliment, category)
+            # mettre un if : proposer la substitution si y a un produit, sinon retour au début
             print("Voulez-vous enregister votre produit de substitution ? O/N")
             get_input = input()
             if get_input == "O" or get_input == "o":
@@ -36,12 +37,13 @@ class Cli(object):
             if int_input == 1 or int_input == 2:
                 return int_input
             else:
+                print("Cette valeur n'est pas un choix valable. Recommencez.")
                 return self.main_question()
         except EOFError:
             print("C'est pas ça qu'il faut faire !!!")
             sys.exit()
         except:
-            print("Une erreur est survenue, l'input n'est pas bon.")
+            print("Un chiffre est attendu, merci. Recommencez")
             return self.main_question()
 
     def display_category(self):
@@ -95,19 +97,27 @@ class Cli(object):
         list_alim = self.database.list_aliments(category)
         nutriscore = aliment[3]
         save_id = -1
+        good = False
         for subs in list_alim:
             if subs[3] < nutriscore:
                 nutriscore = subs[3]
-                save_id = subs[0]
+                save_id = subs[0] - 1  # index liste commence à 0, id table à 1
             else:
                 if aliment[3] == "a":
-                    if subs[3] == "a":
-                        print("Votre aliment est le plus sain, mais voici un aliment équivalent à substituer.", subs)
+                    good = True
         if save_id == -1:
             print("Il n'y a pas d'aliment plus sain à proposer.")
-        print(list_alim[save_id])
+        if good:
+            print("Votre aliment est le plus sain.")
+            for subs in list_alim:
+                if subs[3] == "a" and subs != aliment:
+                    print("mais voici un aliment équivalent à substituer :",
+                          subs)
+                    save_id = subs[0] - 1  # index lst commence à 0, id tbl à 1
+        else:
+            print("Voici l'aliment le plus sains à substituer :",
+                  list_alim[save_id])
         return list_alim[save_id]
-
 
 
 cli = Cli()

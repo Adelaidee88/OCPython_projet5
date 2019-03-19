@@ -33,7 +33,6 @@ class Database:
     def create_favorite(self):
         self.table = "CREATE TABLE IF NOT EXISTS favorites (" \
                      "id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT, " \
-                     "category VARCHAR(50)" \
                      "name VARCHAR(100) NOT NULL," \
                      "name_fr VARCHAR(100)," \
                      "nutriscore CHAR(1)," \
@@ -50,7 +49,7 @@ class Database:
                          "jambon": base + "white-hams.json"}
         # "tables crées" = False
         # voir si les tables existent déjà et dans ce cas passer "tables créés" en True
-        # if "tables crées" = True:
+        # if "tables crées" = False: 'ne les créer que si elles n'existent pas)
         for products in list_products.keys():
             self.create_table(products)
         self.fill_items(list_products)
@@ -122,8 +121,7 @@ class Database:
     def add_favorite(self, aliment, category):
         self.create_favorite()
         print(aliment)
-        sql = "INSERT INTO favorites VALUES (NULL," + '\"' + category + \
-              '\"' + '\"' + str(aliment[1]) + '\"' \
+        sql = "INSERT INTO favorites VALUES (NULL," + '\"' + str(aliment[1]) + '\"' \
               + ", " + '\"' + str(aliment[2]) + '\"' \
               + "," + '\"' + str(aliment[3]) + '\"' \
               + ", " + '\"' + str(aliment[4]) + '\"' \
