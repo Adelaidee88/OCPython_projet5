@@ -21,7 +21,7 @@ class Cli(object):
             print("Voulez-vous enregister votre produit de substitution ? O/N")
             get_input = input()
             if get_input == "O" or get_input == "o":
-                self.database.add_favorite(subs_aliment)
+                self.database.add_favorite(subs_aliment, category)
             self.main()
         else:
             self.show_substitutes()
@@ -59,7 +59,7 @@ class Cli(object):
             print("Choissez votre catégorie")
             get_input = input()
             int_input = int(get_input) - 1
-            if 0 <= int_input <= 3:  # pas oublier de mettre au nb de catégorie
+            if 0 <= int_input <= 4:  # pas oublier de mettre au nb de catégorie
                 return self.database.get_category()[int_input][0]
             else:
                 return self.choose_category()
@@ -74,7 +74,7 @@ class Cli(object):
         try:
             print("Choissez votre aliment")
             get_input = input()
-            int_input = int(get_input) - 1
+            int_input = int(get_input)
             if 0 <= int_input <= 19:
                 return int_input
             else:
