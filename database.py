@@ -23,7 +23,6 @@ class Database:
                      "(" \
                 "id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT," \
                 "name VARCHAR(100) NOT NULL," \
-                "name_fr VARCHAR(100)," \
                 "nutriscore CHAR(1)," \
                 "url VARCHAR(255)," \
                 "labels TEXT," \
@@ -34,7 +33,6 @@ class Database:
         self.table = "CREATE TABLE IF NOT EXISTS favorites (" \
                      "id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT, " \
                      "name VARCHAR(100) NOT NULL," \
-                     "name_fr VARCHAR(100)," \
                      "nutriscore CHAR(1)," \
                      "url VARCHAR(255)," \
                      "labels TEXT," \
@@ -46,7 +44,12 @@ class Database:
         list_products = {"pizza": base + "pizzas/1.json",
                          "yaourt": base + "yogurts.json",
                          "pâte_à_tartiner": base + "fr:pates-a-tartiner/2.json",
-                         "jambon": base + "white-hams.json"}
+                         "jambon": base + "white-hams.json",
+                         "saucisse": base + "sausages.json",
+                         "biscuit_au_chocolat": base + "chocolate-biscuits.json",
+                         "légumes_préparés": base + "prepared-vegetables.json",
+                         "soupe_de_légumes": base + "vegetable-soups.json",
+                         }
         try:
             sql = "SELECT * FROM pizza;"
             self.cur.execute(sql)
@@ -66,24 +69,21 @@ class Database:
                             + '\"' + response["products"][i][
                                   "product_name"] + '\"' + ", " \
                             + '\"' + response["products"][i][
-                                "product_name_fr"] + '\"' + ", " \
-                            + '\"' + response["products"][i][
                                 "nutrition_grade_fr"] + '\"' + ", " \
                             + '\"' + response["products"][i]["url"] + '\"' + ", " \
                             + '\"' + response["products"][i][
                                 "labels"] + '\"' + ")"
                     self.cur.execute(sql)
                 except KeyError:
-                    sql = "INSERT INTO " + products + " VALUES (NULL, " \
-                          + '\"' + response["products"][i][
-                              "product_name"] + '\"' + ", " \
-                          + '\"' + response["products"][i][
-                              "product_name_fr"] + '\"' + ", " \
-                          + '\"' + response["products"][i][
-                              "nutrition_grade_fr"] + '\"' + ", " \
-                          + '\"' + response["products"][i]["url"] + '\"' + ", " \
-                          + "NULL)"
-                    self.cur.execute(sql)
+                    pass
+                    # sql = "INSERT INTO " + products + " VALUES (NULL, " \
+                          # + '\"' + response["products"][i][
+                          #     "product_name"] + '\"' + ", " \
+                          # + '\"' + response["products"][i][
+                          #     "nutrition_grade_fr"] + '\"' + ", " \
+                          # + '\"' + response["products"][i]["url"] + '\"' + ", " \
+                          # + "NULL)"
+                    # self.cur.execute(sql)
 
     def get_category(self):
         sql = "SHOW TABLES WHERE tables_in_products != 'favorites';"
@@ -95,7 +95,7 @@ class Database:
         return list_category
 
     def get_aliments(self, category):
-        sql = "SELECT name_fr FROM " + category + ";"
+        sql = "SELECT name FROM " + category + ";"
         self.cur.execute(sql)
         rows = self.cur.fetchall()
         list_aliments = []
@@ -124,8 +124,7 @@ class Database:
         sql = "INSERT INTO favorites VALUES (NULL," + '\"' + str(aliment[1]) + '\"' \
               + ", " + '\"' + str(aliment[2]) + '\"' \
               + "," + '\"' + str(aliment[3]) + '\"' \
-              + ", " + '\"' + str(aliment[4]) + '\"' \
-              + "," + '\"' + str(aliment[5]) + '\"' + ")"
+              + "," + '\"' + str(aliment[4]) + '\"' + ")"
         self.cur.execute(sql)
         self.db.commit()
 
@@ -143,3 +142,4 @@ class Database:
         # cur.execute(sql, val)
         # db.commit()
 # faire un test pour voir si tables existent avant de les remplir
+# requête api pls pages et fix erreurs

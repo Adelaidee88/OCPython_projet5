@@ -92,26 +92,26 @@ class Cli(object):
 
     def subs_aliment(self, aliment, category):
         list_alim = self.database.list_aliments(category)
-        nutriscore = aliment[3]
+        nutriscore = aliment[2]
         save_id = -1
         good = False
         for subs in list_alim:
-            if subs[3] < nutriscore:
-                nutriscore = subs[3]
+            if subs[2] < nutriscore:
+                nutriscore = subs[2]
                 save_id = subs[0] - 1  # index liste commence à 0, id table à 1
             else:
-                if aliment[3] == "a":
+                if aliment[2] == "a":
                     good = True
         if save_id == -1:
             print("Il n'y a pas d'aliment plus sain à proposer.")
         if good:
             print("Votre aliment est le plus sain.")
             for subs in list_alim:
-                if subs[3] == "a" and subs != aliment:
+                if subs[2] == "a" and subs != aliment:
                     print("mais voici un aliment équivalent à substituer :",
                           subs)
                     save_id = subs[0] - 1  # index lst commence à 0, id tbl à 1
-        else:
+        elif save_id != -1:
             print("Voici l'aliment le plus sain :", list_alim[save_id])
         return list_alim[save_id]
 

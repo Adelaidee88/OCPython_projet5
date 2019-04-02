@@ -78,11 +78,7 @@ for products, url in list_products.items():
 
 db.commit()
 
-#  + '\"' + str(
-#             aliment[0]) + '\"' +
-
-# + '\"' + product_type + '\" ' + \
-
+# https://fr.openfoodfacts.org/cgi/search.pl?action=process&tagtype_0=categories&tag_contains_0=contains&tag_0=" + category["name"] + "&sort_by=unique_scans_n&page_size=1000&axis_x=energy&axis_y=products_n&action=display&json=1
 # name = response["products"][0]["product_name"]
 # print(name)
 # nom : product_name_fr / product_name
