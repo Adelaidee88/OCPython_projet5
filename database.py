@@ -40,15 +40,18 @@ class Database:
         self.cur.execute(self.table)
 
     def fill_table(self):
-        base = "https://fr-en.openfoodfacts.org/category/"
-        list_products = {"pizza": base + "pizzas/1.json",
-                         "yaourt": base + "yogurts.json",
-                         "pâte_à_tartiner": base + "fr:pates-a-tartiner/2.json",
-                         "jambon": base + "white-hams.json",
-                         "saucisse": base + "sausages.json",
-                         "biscuit_au_chocolat": base + "chocolate-biscuits.json",
-                         "légumes_préparés": base + "prepared-vegetables.json",
-                         "soupe_de_légumes": base + "vegetable-soups.json",
+        base = "https://fr.openfoodfacts.org/cgi/search.pl?action=process&" \
+               "tagtype_0=categories&tag_contains_0=contains&tag_0="
+        base2 = "&sort_by=unique_scans_n&page_size=20&axis_x=energy&axis_" \
+                "y=products_n&action=display&json=1"
+        list_products = {"pizza": base + "pizza" + base2,
+                         "yaourt": base + "yogurt" + base2,
+                         "pâte_à_tartiner": base + "fr:pates-a-tartiner" + base2,
+                         "jambon": base + "white-hams" + base2,
+                         "saucisse": base + "sausages" + base2,
+                         "biscuit_au_chocolat": base + "chocolate-biscuits" + base2,
+                         "légumes_préparés": base + "prepared-vegetables" + base2,
+                         "soupe_de_légumes": base + "vegetable-soups" + base2,
                          }
         try:
             sql = "SELECT * FROM pizza;"
@@ -75,6 +78,7 @@ class Database:
                                 "labels"] + '\"' + ")"
                     self.cur.execute(sql)
                 except KeyError:
+                    print("coucou")
                     pass
                     # sql = "INSERT INTO " + products + " VALUES (NULL, " \
                           # + '\"' + response["products"][i][

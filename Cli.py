@@ -58,9 +58,10 @@ class Cli(object):
             print("Choissez votre catégorie")
             get_input = input()
             int_input = int(get_input) - 1
-            if 0 <= int_input <= 4:  # pas oublier de mettre au nb de catégorie
+            if 0 <= int_input <= 7:  # pas oublier de mettre au nb de catégorie
                 return self.database.get_category()[int_input][0]
             else:
+                print("Ce n'est pas une catégorie valable")
                 return self.choose_category()
         except EOFError:
             print("C'est pas ça qu'il faut faire !!!")
