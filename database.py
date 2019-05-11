@@ -44,22 +44,22 @@ class Database:
                "tagtype_0=categories&tag_contains_0=contains&tag_0="
         base2 = "&sort_by=unique_scans_n&page_size=20&axis_x=energy&axis_" \
                 "y=products_n&action=display&json=1"
-        list_products = {"pizza": base + "pizza" + base2,
-                         "yaourt": base + "yogurt" + base2,
-                         "pâte_à_tartiner": base + "fr:pates-a-tartiner" + base2,
-                         "jambon": base + "white-hams" + base2,
-                         "saucisse": base + "sausages" + base2,
-                         "biscuit_au_chocolat": base + "chocolate-biscuits" + base2,
-                         "légumes_préparés": base + "prepared-vegetables" + base2,
-                         "soupe_de_légumes": base + "vegetable-soups" + base2,
-                         }
+        list_prod = {"pizza": base + "pizza" + base2,
+                     "yaourt": base + "yogurt" + base2,
+                     "pâte_à_tartiner": base + "fr:pates-a-tartiner" + base2,
+                     "jambon": base + "white-hams" + base2,
+                     "saucisse": base + "sausages" + base2,
+                     "biscuit_au_chocolat": base + "chocolate-biscuits" + base2,
+                     "légumes_préparés": base + "prepared-vegetables" + base2,
+                     "soupe_de_légumes": base + "vegetable-soups" + base2,
+                     }
         try:
             sql = "SELECT * FROM pizza;"
             self.cur.execute(sql)
         except:
-            for products in list_products.keys():
+            for products in list_prod.keys():
                 self.create_table(products)
-            self.fill_items(list_products)
+            self.fill_items(list_prod)
             self.db.commit()
 
     def fill_items(self, list_products):
@@ -73,21 +73,12 @@ class Database:
                                   "product_name"] + '\"' + ", " \
                             + '\"' + response["products"][i][
                                 "nutrition_grade_fr"] + '\"' + ", " \
-                            + '\"' + response["products"][i]["url"] + '\"' + ", " \
-                            + '\"' + response["products"][i][
+                            + '\"' + response["products"][i]["url"] + '\"' \
+                            + ", " + '\"' + response["products"][i][
                                 "labels"] + '\"' + ")"
                     self.cur.execute(sql)
                 except KeyError:
-                    print("coucou")
                     pass
-                    # sql = "INSERT INTO " + products + " VALUES (NULL, " \
-                          # + '\"' + response["products"][i][
-                          #     "product_name"] + '\"' + ", " \
-                          # + '\"' + response["products"][i][
-                          #     "nutrition_grade_fr"] + '\"' + ", " \
-                          # + '\"' + response["products"][i]["url"] + '\"' + ", " \
-                          # + "NULL)"
-                    # self.cur.execute(sql)
 
     def get_category(self):
         sql = "SHOW TABLES WHERE tables_in_products != 'favorites';"
@@ -125,8 +116,8 @@ class Database:
 
     def add_favorite(self, aliment, category):
         self.create_favorite()
-        sql = "INSERT INTO favorites VALUES (NULL," + '\"' + str(aliment[1]) + '\"' \
-              + ", " + '\"' + str(aliment[2]) + '\"' \
+        sql = "INSERT INTO favorites VALUES (NULL," + '\"' + str(aliment[1]) \
+              + '\"' + ", " + '\"' + str(aliment[2]) + '\"' \
               + "," + '\"' + str(aliment[3]) + '\"' \
               + "," + '\"' + str(aliment[4]) + '\"' + ")"
         self.cur.execute(sql)
@@ -136,14 +127,4 @@ class Database:
         sql = "SELECT * FROM favorites"
         self.cur.execute(sql)
         choice = self.cur.fetchall()
-        print(choice)
         return choice
-
-        # db = pymysql.connect(host="localhost", user="root",
-        # passwd="piO!u3Cui7", db="test")
-        # sql = "INSERT INTO test_table (description) VALUES (%s)"
-        # val = ("patate")
-        # cur.execute(sql, val)
-        # db.commit()
-# faire un test pour voir si tables existent avant de les remplir
-# requête api pls pages et fix erreurs

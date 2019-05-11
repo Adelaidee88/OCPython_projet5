@@ -40,7 +40,7 @@ class Cli(object):
             print("C'est pas ça qu'il faut faire !!!")
             sys.exit()
         except:
-            print("Un chiffre est attendu, merci. Recommencez")
+            print("Un nombre est attendu, merci. Recommencez")
             return self.main_question()
 
     def display_category(self):
@@ -58,7 +58,7 @@ class Cli(object):
             print("Choissez votre catégorie")
             get_input = input()
             int_input = int(get_input) - 1
-            if 0 <= int_input <= 7:  # pas oublier de mettre au nb de catégorie
+            if 0 <= int_input <= 7:
                 return self.database.get_category()[int_input][0]
             else:
                 print("Ce n'est pas une catégorie valable")
@@ -112,6 +112,7 @@ class Cli(object):
                     print("mais voici un aliment équivalent à substituer :",
                           subs)
                     save_id = subs[0] - 1  # index lst commence à 0, id tbl à 1
+                    return list_alim[save_id]
         elif save_id != -1:
             print("Voici l'aliment le plus sain :", list_alim[save_id])
         return list_alim[save_id]
@@ -119,6 +120,3 @@ class Cli(object):
 
 cli = Cli()
 cli.main()
-
-
-# arranger la visualisation
