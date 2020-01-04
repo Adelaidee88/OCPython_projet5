@@ -1,0 +1,26 @@
+
+CREATE TABLE products (
+                id SMALLINT NOT NULL,
+                PRIMARY KEY (id)
+);
+
+
+CREATE TABLE favorites (
+                id SMALLINT AUTO_INCREMENT NOT NULL,
+                substitute SMALLINT NOT NULL,
+                product SMALLINT NOT NULL,
+                PRIMARY KEY (id)
+);
+
+
+ALTER TABLE favorites ADD CONSTRAINT products_favorites_fk
+FOREIGN KEY (product)
+REFERENCES products (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
+
+ALTER TABLE favorites ADD CONSTRAINT products_favorites_fk1
+FOREIGN KEY (substitute)
+REFERENCES products (id)
+ON DELETE NO ACTION
+ON UPDATE NO ACTION;
