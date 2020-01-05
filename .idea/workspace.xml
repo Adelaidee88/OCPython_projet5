@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="60994658-5817-41c0-97e7-891f6c3ccd75" name="Default Changelist" comment="end">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/id_database.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/OCPython_projet5.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/OCPython_projet5.iml" afterDir="false" />
+    <list default="true" id="60994658-5817-41c0-97e7-891f6c3ccd75" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cli.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/id_database.yml" beforeDir="false" afterPath="$PROJECT_DIR$/id_database.yml" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -34,22 +29,15 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1PpV8ANwCc0y4USMrSHPucnshxI" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager" selected="Python.Cli">
     <configuration name="Cli" type="PythonConfigurationType" factoryName="Python" temporary="true">
@@ -167,6 +155,18 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -276,7 +276,14 @@
       <option name="project" value="LOCAL" />
       <updated>1557565271644</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="end">
+      <created>1578136095662</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1578136095662</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -308,5 +315,27 @@
     <MESSAGE value="wip remplissage bdd extend bis" />
     <MESSAGE value="end" />
     <option name="LAST_COMMIT_MESSAGE" value="end" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1362" height="233" key="GridCell.Tab.0.bottom" timestamp="1578230384459">
+      <screen x="0" y="30" width="1920" height="1050" />
+    </state>
+    <state width="1362" height="233" key="GridCell.Tab.0.bottom/-1920.30.1920.1170/0.30.1920.1050@0.30.1920.1050" timestamp="1578230384459" />
+    <state width="1362" height="233" key="GridCell.Tab.0.center" timestamp="1578230384459">
+      <screen x="0" y="30" width="1920" height="1050" />
+    </state>
+    <state width="1362" height="233" key="GridCell.Tab.0.center/-1920.30.1920.1170/0.30.1920.1050@0.30.1920.1050" timestamp="1578230384459" />
+    <state width="1362" height="233" key="GridCell.Tab.0.left" timestamp="1578230384458">
+      <screen x="0" y="30" width="1920" height="1050" />
+    </state>
+    <state width="1362" height="233" key="GridCell.Tab.0.left/-1920.30.1920.1170/0.30.1920.1050@0.30.1920.1050" timestamp="1578230384458" />
+    <state width="1362" height="233" key="GridCell.Tab.0.right" timestamp="1578230384459">
+      <screen x="0" y="30" width="1920" height="1050" />
+    </state>
+    <state width="1362" height="233" key="GridCell.Tab.0.right/-1920.30.1920.1170/0.30.1920.1050@0.30.1920.1050" timestamp="1578230384459" />
+    <state x="656" y="380" key="com.intellij.ide.util.TipDialog" timestamp="1578229969194">
+      <screen x="0" y="30" width="1920" height="1050" />
+    </state>
+    <state x="656" y="380" key="com.intellij.ide.util.TipDialog/-1920.30.1920.1170/0.30.1920.1050@0.30.1920.1050" timestamp="1578229969194" />
   </component>
 </project>

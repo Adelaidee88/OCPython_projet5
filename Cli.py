@@ -134,7 +134,8 @@ class Cli(object):
             print("{} est substitué par {}, dont le nutriscore est {}. \n On "
                   "peut le trouver dans ces magasins : {}. \n Pour plus "
                   "d'informations, son lien vers "
-                  "OpenFoodFacts : {} \n".format(cle, valeur[1], valeur[4], valeur[3][1:-1], valeur[5]))
+                  "OpenFoodFacts : {} \n".format(cle, valeur[1], valeur[4],
+                                                 valeur[3][1:-1], valeur[5]))
 
     def subs_aliment(self, aliment, category):
         list_alim = self.database.list_aliments(category)
@@ -144,7 +145,7 @@ class Cli(object):
         for subs in list_alim:
             if subs[4] < nutriscore:
                 nutriscore = subs[4]
-                save_id = subs[0]  # index liste commence à 0, id table à 1
+                save_id = subs[0]
             else:
                 if aliment[4] == "a":
                     good = True
@@ -154,14 +155,16 @@ class Cli(object):
                 if subs[4] == "a" and subs != aliment:
                     print("mais voici un aliment équivalent à "
                           "substituer : {}".format(subs[1]))
-                    save_id = subs[0]  # index lst commence à 0, id tbl à 1
+                    save_id = subs[0]
                     return self.database.my_aliment(save_id)
         if save_id == -1:
             print("Il n'y a pas d'aliment plus sain à proposer.")
             return aliment
         elif save_id != -1:
             print("Voici l'aliment le plus sain : {}, "
-                  "avec un nutriscore de {}".format(self.database.my_aliment(save_id)[1], self.database.my_aliment(save_id)[4]))
+                  "avec un nutriscore de "
+                  "{}".format(self.database.my_aliment(save_id)[1],
+                              self.database.my_aliment(save_id)[4]))
         return self.database.my_aliment(save_id)
 
 

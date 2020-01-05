@@ -30,7 +30,7 @@ class Database:
                                   db=info_connexion["db"])
         self.cur = self.db.cursor()
 
-    def create_table(self):  # lire le script sql
+    def create_table(self):  
         self.table = "CREATE TABLE IF NOT EXISTS products (" \
                 "id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT," \
                 "name VARCHAR(100) NOT NULL," \
@@ -42,7 +42,7 @@ class Database:
                 "PRIMARY KEY (id))"
         self.cur.execute(self.table)
 
-    def create_favorite(self):  # syntaxe sql à revoir
+    def create_favorite(self):  
         self.table = "CREATE TABLE IF NOT EXISTS favorites (" \
                      "id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT, " \
                      "product SMALLINT UNSIGNED NOT NULL," \
@@ -140,10 +140,12 @@ class Database:
         return list_aliments
 
     def show_aliment(self, aliment, category):
-        sql = "SELECT * FROM products WHERE category='" + category + "' AND id = " + str(aliment) + ";"
+        sql = "SELECT * FROM products WHERE category='" + \
+              category + "' AND id = " + str(aliment) + ";"
         self.cur.execute(sql)
         choice = self.cur.fetchall()
-        print("Votre choix : {} ayant {} comme nutriscore".format(choice[0][1], choice[0][4]))
+        print("Votre choix : {} ayant {} comme nutriscore".format(choice[0][1],
+                                                                  choice[0][4]))
         return choice[0]
 
     def add_favorite(self, product, subs):
@@ -159,21 +161,20 @@ class Database:
         list_prod = []
         list_subs = []
         for i in range(0, len(list_fav)):
-            sql_prod = "SELECT name FROM products WHERE id = " + str(list_fav[i][1]) + ";"
+            sql_prod = "SELECT name FROM products WHERE id = " + \
+                       str(list_fav[i][1]) + ";"
             self.cur.execute(sql_prod)
-            prod = self.cur.fetchall()  # trouver autre chose
+            prod = self.cur.fetchall()  
             list_prod.append(prod)
         for i in range(0, len(list_fav)):
-            sql_subs = "SELECT * FROM products WHERE id = " + str(list_fav[i][2]) + ";"
+            sql_subs = "SELECT * FROM products WHERE id = " + \
+                       str(list_fav[i][2]) + ";"
             self.cur.execute(sql_subs)
-            subs = self.cur.fetchall()   # trouver autre chose
-            list_subs.append(subs)
-        # print(list_prod)
-        # print(list_subs)
+            subs = self.cur.fetchall()   
+            list_subs.append(subs)        
         choice = {}
         for i in range(0, len(list_prod)):
-            choice[list_prod[i][0][0]] = list_subs[i][0]
-        # print(choice)
+            choice[list_prod[i][0][0]] = list_subs[i][0]        
         return choice
 
     def my_aliment(self, id_alim):
